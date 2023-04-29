@@ -5,12 +5,12 @@ resource "tls_private_key" "instance_key" {
 }
 # Create the Key Pair
 resource "aws_key_pair" "instance_key" {
-  key_name   = "instance_key_pair"  
+  key_name   = "instance_key_pair"
   public_key = tls_private_key.instance_key.public_key_openssh
 }
 # Save file
 resource "local_file" "ssh_key" {
-  filename = "${aws_key_pair.instance_key.key_name}.pem"
-  content  = tls_private_key.instance_key.private_key_pem
+  filename        = "${aws_key_pair.instance_key.key_name}.pem"
+  content         = tls_private_key.instance_key.private_key_pem
   file_permission = "400"
 }
